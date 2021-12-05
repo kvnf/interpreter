@@ -7,20 +7,20 @@ from typing import NamedTuple
 
 @unique
 class TokenType(Enum):
-    ASSIGN      = auto()
-    COMMA       = auto()
-    EOF         = auto()
-    FUNCTION    = auto()   
-    IDENT       = auto()
-    ILLEGAL     = auto()
-    INT         = auto()
-    LBRACE      = auto()
-    LET         = auto()
-    LPAREN      = auto()
-    PLUS        = auto()
-    RBRACE      = auto()    
-    RPAREN      = auto()
-    SEMICOLON   = auto()
+    ASSIGN      =       auto()
+    COMMA       =       auto()
+    EOF         =       auto()
+    FUNCTION    =       auto()   
+    IDENT       =       auto()
+    ILLEGAL     =       auto()
+    INT         =       auto()
+    LBRACE      =       auto()
+    LET         =       auto()
+    LPAREN      =       auto()
+    PLUS        =       auto()
+    RBRACE      =       auto()    
+    RPAREN      =       auto()
+    SEMICOLON   =       auto()
     
 class Token(NamedTuple):
     token_type  : TokenType
