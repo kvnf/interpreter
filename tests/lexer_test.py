@@ -191,9 +191,28 @@ class LexerTest(TestCase):
         ]
         
         self.assertEquals(tokens, expected_tokens)
+    
+    def test_two_character_operator(self) -> None:
+        source:str = '''
+        1 == 1;
+        1 != 2;
+        '''        
+        lexer: Lexer = Lexer(source)
+
+        tokens: List[Token] = []
+        for i in range(8):
+            tokens.append(lexer.next_token())
         
+        expected_tokens: List[Token] = [
+            Token(TokenType.INT, '1'),
+            Token(TokenType.EQ, '=='),
+            Token(TokenType.INT, '1'),
+            Token(TokenType.SEMICOLON, ';'),
+            Token(TokenType.INT, '1'),
+            Token(TokenType.NOT_EQ, '!='),
+            Token(TokenType.INT, '2'),
+            Token(TokenType.SEMICOLON, ';')
+        ]
         
-        
-        
-        
+        self.assertEquals(tokens, expected_tokens)
         
