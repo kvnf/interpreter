@@ -26,7 +26,7 @@ class LexerTest(TestCase):
         self.assertEquals(tokens, expected_tokens)
     
     def test_one_character_operator(self) -> None:
-        source: str = '=+'
+        source: str = '=+-*/<>!'
         lexer: Lexer = Lexer(source)
         
         tokens: List[Token] = []
@@ -37,6 +37,12 @@ class LexerTest(TestCase):
         expected_tokens: List[Token] = [
             Token(TokenType.ASSIGN, '='),
             Token(TokenType.PLUS, '+'),
+            Token(TokenType.SUB, '-'),
+            Token(TokenType.PROD, '*'),
+            Token(TokenType.DIV, '/'),
+            Token(TokenType.LT, '<'),
+            Token(TokenType.GT, '>'),
+            Token(TokenType.NEG, '!'),
             
         ]
         
@@ -150,9 +156,41 @@ class LexerTest(TestCase):
         
         self.assertEquals(tokens, expected_tokens)
         
+    def test_control_statement(self) -> None:
+        source: str = '''
+        if (5 < 10) {
+            return true;   
+        } else {
+            return false;
+        }
+        '''
+        lexer: Lexer = Lexer(source)
         
+        tokens: List[Token] = []
+        for i in range(17):
+            tokens.append(lexer.next_token())
         
+        expected_tokens: List[Token] =[
+            Token(TokenType.IF, 'if'),
+            Token(TokenType.LPAREN, '('),
+            Token(TokenType.INT, '5'),
+            Token(TokenType.LT, '<'),
+            Token(TokenType.INT, '10'),
+            Token(TokenType.RPAREN, ')'),
+            Token(TokenType.LBRACE, '{'),
+            Token(TokenType.RETURN, 'return'),
+            Token(TokenType.TRUE, 'true'),
+            Token(TokenType.SEMICOLON, ';'),
+            Token(TokenType.RBRACE, '}'),
+            Token(TokenType.ELSE, 'else'),
+            Token(TokenType.LBRACE, '{'),
+            Token(TokenType.RETURN, 'return'),
+            Token(TokenType.FALSE, 'false'),
+            Token(TokenType.SEMICOLON, ';'),
+            Token(TokenType.RBRACE, '}'),
+        ]
         
+        self.assertEquals(tokens, expected_tokens)
         
         
         
