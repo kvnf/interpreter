@@ -79,3 +79,4 @@ class Lexer:
         while match(r'^\s$', self._character):
             self._read_character() 
     
+    

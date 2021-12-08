@@ -34,6 +34,7 @@ class Token(NamedTuple):
     
 def get_token_type(literal: str) -> TokenType:
     keywords: Dict[str, TokenType] = {
+        'func':TokenType.FUNCTION,
         'var':TokenType.LET
     }
     return keywords.get(literal, TokenType.IDENT)
