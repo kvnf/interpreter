@@ -19,5 +19,6 @@ def start_repl():
         for statement in program.statements:
             print(statement.name)
         print(program)
+        print(len(parser.errors))
         while (token := lexer.next_token()) != EOF_TOKEN:
             print(token)    
