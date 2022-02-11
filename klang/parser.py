@@ -1,8 +1,10 @@
 from typing import (
+    Callable,
     List,
     Optional
 )
 from klang.ast import (
+    Expression,
     Identifier,
     LetStatement,
     Program,
@@ -14,13 +16,24 @@ from klang.token import (
     Token,
     TokenType
 )
+
+# Aliases
+PrefixParsFn = Callable[[], Optional[Expression]]
+InfixParsFn = Callable[[Expression], Optional[Expression]]
+PrefixParsFns = dict[TokenType, PrefixParsFn]
+InfixParsFns = dict[TokenType, InfixParsFn]
+
+
 class Parser():
     def __init__(self, lexer: Lexer) -> None:
         self._lexer = lexer
         self._current_token: Optional[Token] = None
         self._peek_token: Optional[Token] = None
         self._errors: List[str] = []
-            
+         
+        self._prefix_parse_fns: PrefixParsFns = self._register_prefix_fns()    
+        self._infix_parse_fns: InfixParsFns = self._register_infix_fns()    
+        
         self._advance_tokens()
         self._advance_tokens()
     
@@ -97,3 +110,10 @@ class Parser():
             return self._parse_return_statement()
         else:
             return None
+    
+    def _register_infix_fns(self) -> InfixParsFn:
+        return {}
+    
+    def _register_prefix_fns(self) -> PrefixParsFn:
+        return {}
+    
